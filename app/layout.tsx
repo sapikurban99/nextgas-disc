@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DISC Personality AI Analyst",
-  description: "Dynamic, AI-powered DISC Assessment Tool",
+  title: "CareerAI - Platform Analisis Karir",
+  description: "Analisis CV, optimasi profil LinkedIn, dan tes kepribadian DISC dengan teknologi AI.",
 };
 
 export default function RootLayout({
