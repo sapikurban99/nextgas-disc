@@ -9,8 +9,8 @@ export default function LandingPage() {
     <div className="min-h-screen bg-black text-zinc-300 font-sans selection:bg-white selection:text-black">
 
       {/* Minimal Navbar */}
-      <nav className="border-b border-zinc-900 bg-black">
-        <div className="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+      <nav className="border-b border-zinc-900 bg-black sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 bg-white flex items-center justify-center rounded-sm">
               <Sparkles className="w-4 h-4 text-black" />
@@ -29,7 +29,7 @@ export default function LandingPage() {
 
       <main>
         {/* Clean Hero Section */}
-        <section className="pt-32 pb-20 md:pt-40 md:pb-32 px-6 text-center max-w-4xl mx-auto">
+        <section className="pt-12 pb-10 md:pt-16 md:pb-14 px-6 text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 text-zinc-400 text-xs font-medium mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
             Didukung oleh AI
@@ -62,7 +62,7 @@ export default function LandingPage() {
 
 
         {/* Grid Features - Flat & Clean */}
-        <section id="features" className="py-32 max-w-6xl mx-auto px-6">
+        <section id="features" className="py-16 md:py-24 max-w-6xl mx-auto px-6">
           <div className="mb-16 md:flex justify-between items-end">
             <div className="max-w-2xl">
               <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">Ekosistem Karir</h2>
@@ -124,7 +124,7 @@ export default function LandingPage() {
         </section>
 
         {/* Inverse CTA (White Background) */}
-        <section className="bg-white py-32 text-center px-6">
+        <section className="bg-white py-20 text-center px-6">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-black tracking-tight mb-6">Mulai Transformasi Karirmu.</h2>
             <p className="text-zinc-600 text-lg mb-10 max-w-xl mx-auto">
@@ -141,7 +141,7 @@ export default function LandingPage() {
       </main>
 
       {/* Clean Footer */}
-      <footer className="bg-black pt-20 pb-10 border-t border-zinc-900 px-6">
+      <footer className="bg-black pt-16 pb-8 border-t border-zinc-900 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             <div className="md:col-span-2">
