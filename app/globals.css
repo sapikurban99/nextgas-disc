@@ -1,16 +1,167 @@
 @import "tailwindcss";
 
+/* ── Light Mode (default) ──────────────────────────── */
 :root {
-  --background: #f8fafc;
-  /* slate-50 */
-  --foreground: #1e293b;
-  /* slate-800 */
+  --bg-page: #ffffff;
+  --bg-card: #f8fafc;
+  --bg-card-hover: #f1f5f9;
+  --bg-input: #f1f5f9;
+  --bg-nav: #ffffff;
+  --bg-accent: #000000;
+  --bg-accent-hover: #18181b;
+
+  --border-primary: #e2e8f0;
+  --border-secondary: #cbd5e1;
+
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+  --text-accent: #0f172a;
+
+  --badge-bg: #f1f5f9;
+  --badge-border: #e2e8f0;
+  --badge-text: #64748b;
+  --badge-dot: #0f172a;
+
+  --cta-bg: #0f172a;
+  --cta-text: #ffffff;
+  --cta-section-bg: #0f172a;
+  --cta-section-text: #ffffff;
+  --cta-section-muted: #94a3b8;
+  --cta-section-btn-bg: #ffffff;
+  --cta-section-btn-text: #0f172a;
+
+  --radio-border: #cbd5e1;
+  --radio-hover-border: #94a3b8;
+  --radio-dot: #0f172a;
+
+  /* DISC trait cards */
+  --trait-d-bg: #fff1f2;
+  --trait-d-border: #fecdd3;
+  --trait-d-text: #e11d48;
+  --trait-i-bg: #fffbeb;
+  --trait-i-border: #fde68a;
+  --trait-i-text: #d97706;
+  --trait-s-bg: #ecfdf5;
+  --trait-s-border: #a7f3d0;
+  --trait-s-text: #059669;
+  --trait-c-bg: #f0f9ff;
+  --trait-c-border: #bae6fd;
+  --trait-c-text: #0284c7;
 }
 
-body {
-  color: var(--foreground);
-  background-color: var(--background);
+/* ── Dark Mode ─────────────────────────────────────── */
+.dark {
+  --bg-page: #000000;
+  --bg-card: #09090b;
+  --bg-card-hover: #18181b;
+  --bg-input: #18181b;
+  --bg-nav: #000000;
+  --bg-accent: #ffffff;
+  --bg-accent-hover: #e4e4e7;
+
+  --border-primary: #18181b;
+  --border-secondary: #27272a;
+
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-inverse: #000000;
+  --text-accent: #ffffff;
+
+  --badge-bg: transparent;
+  --badge-border: #27272a;
+  --badge-text: #a1a1aa;
+  --badge-dot: #ffffff;
+
+  --cta-bg: #ffffff;
+  --cta-text: #000000;
+  --cta-section-bg: #ffffff;
+  --cta-section-text: #000000;
+  --cta-section-muted: #52525b;
+  --cta-section-btn-bg: #000000;
+  --cta-section-btn-text: #ffffff;
+
+  --radio-border: #3f3f46;
+  --radio-hover-border: #71717a;
+  --radio-dot: #ffffff;
+
+  --trait-d-bg: rgba(127, 29, 29, 0.3);
+  --trait-d-border: rgba(159, 18, 57, 0.5);
+  --trait-d-text: #fb7185;
+  --trait-i-bg: rgba(120, 53, 15, 0.3);
+  --trait-i-border: rgba(146, 64, 14, 0.5);
+  --trait-i-text: #fbbf24;
+  --trait-s-bg: rgba(6, 78, 59, 0.3);
+  --trait-s-border: rgba(4, 120, 87, 0.5);
+  --trait-s-text: #34d399;
+  --trait-c-bg: rgba(7, 89, 133, 0.3);
+  --trait-c-border: rgba(3, 105, 161, 0.5);
+  --trait-c-text: #38bdf8;
 }
+
+/* ── Base Styles ───────────────────────────────────── */
+body {
+  color: var(--text-secondary);
+  background-color: var(--bg-page);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Utility Classes (used across all pages) ───────── */
+.theme-page       { background-color: var(--bg-page); color: var(--text-secondary); }
+.theme-nav        { background-color: var(--bg-nav); border-color: var(--border-primary); }
+.theme-card       { background-color: var(--bg-card); border-color: var(--border-primary); }
+.theme-card-hover:hover { background-color: var(--bg-card-hover); border-color: var(--border-secondary); }
+.theme-input      { background-color: var(--bg-input); border-color: var(--border-secondary); color: var(--text-primary); }
+.theme-input:focus { border-color: var(--text-muted); }
+.theme-text       { color: var(--text-primary); }
+.theme-text-secondary { color: var(--text-secondary); }
+.theme-text-muted { color: var(--text-muted); }
+.theme-border     { border-color: var(--border-primary); }
+.theme-border-secondary { border-color: var(--border-secondary); }
+
+.theme-btn-primary {
+  background-color: var(--bg-accent);
+  color: var(--text-inverse);
+  transition: background-color 0.2s ease;
+}
+.theme-btn-primary:hover { background-color: var(--bg-accent-hover); }
+.theme-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.theme-btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--border-secondary);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease;
+}
+.theme-btn-secondary:hover { background-color: var(--bg-card); }
+
+.theme-badge {
+  background-color: var(--badge-bg);
+  border-color: var(--badge-border);
+  color: var(--badge-text);
+}
+
+.theme-cta-section {
+  background-color: var(--cta-section-bg);
+  color: var(--cta-section-text);
+}
+
+/* Scrollbar for dark/light */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: var(--bg-card); }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: var(--border-secondary); border-radius: 3px; }
+
+/* DISC trait card utilities */
+.trait-d { background-color: var(--trait-d-bg); border-color: var(--trait-d-border); }
+.trait-d-text { color: var(--trait-d-text); }
+.trait-i { background-color: var(--trait-i-bg); border-color: var(--trait-i-border); }
+.trait-i-text { color: var(--trait-i-text); }
+.trait-s { background-color: var(--trait-s-bg); border-color: var(--trait-s-border); }
+.trait-s-text { color: var(--trait-s-text); }
+.trait-c { background-color: var(--trait-c-bg); border-color: var(--trait-c-border); }
+.trait-c-text { color: var(--trait-c-text); }
 
 @media print {
   body {

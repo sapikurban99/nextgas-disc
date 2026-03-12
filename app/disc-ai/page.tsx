@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Bot, BrainCircuit, RefreshCw, ChevronRight, FileDown, RotateCcw, Users, Loader2, ArrowLeft } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 // Helper to shuffle arrays
 const shuffleArray = <T,>(array: T[]): T[] => {
@@ -304,15 +305,15 @@ export default function DiscApp() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center text-zinc-500">
-        <RefreshCw className="w-10 h-10 animate-spin mb-4 text-zinc-600" />
+      <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: 'var(--bg-page)', color: 'var(--text-muted)' }}>
+        <RefreshCw className="w-10 h-10 animate-spin mb-4" style={{ color: 'var(--text-muted)' }} />
         <p className="tracking-widest uppercase text-sm font-semibold">Menyiapkan Asesmen...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black text-zinc-300 font-sans p-4 sm:p-8 overflow-x-hidden">
+    <div className="min-h-screen font-sans p-4 sm:p-8 overflow-x-hidden" style={{ backgroundColor: 'var(--bg-page)', color: 'var(--text-secondary)' }}>
       <main className="max-w-3xl mx-auto min-h-[85vh] flex flex-col justify-center relative">
         <AnimatePresence mode="wait">
 
@@ -323,20 +324,23 @@ export default function DiscApp() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              className="bg-zinc-950 rounded-lg p-8 sm:p-14 text-center border border-zinc-900 relative"
+              className="rounded-lg p-8 sm:p-14 text-center relative border" style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-primary)' }}
             >
               <div className="absolute top-6 left-6 sm:top-8 sm:left-8">
-                <Link href="/" className="text-zinc-500 hover:text-white flex items-center gap-2 text-sm font-semibold transition-colors">
+                <Link href="/" className="flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: 'var(--text-muted)' }}>
                   <ArrowLeft className="w-4 h-4" /> Kembali
                 </Link>
               </div>
-              <div className="inline-flex p-4 bg-zinc-900 rounded-lg text-white mb-8 mt-4 sm:mt-0 border border-zinc-800">
+              <div className="absolute top-6 right-6 sm:top-8 sm:right-8">
+                <ThemeToggle />
+              </div>
+              <div className="inline-flex p-4 rounded-lg mb-8 mt-4 sm:mt-0 border" style={{ backgroundColor: 'var(--bg-input)', borderColor: 'var(--border-secondary)', color: 'var(--text-primary)' }}>
                 <Users className="w-10 h-10" />
               </div>
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl font-extrabold mb-4 tracking-tight" style={{ color: 'var(--text-primary)' }}>
                 Asesmen Kepribadian Tim
               </h1>
-              <p className="text-zinc-500 mb-10 max-w-md mx-auto text-lg leading-relaxed">
+              <p className="mb-10 max-w-md mx-auto text-lg leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                 Pahami kecenderungan komunikasimu (DISC) untuk menciptakan kolaborasi dan empati yang lebih baik di tempat kerja.
               </p>
 
@@ -347,12 +351,12 @@ export default function DiscApp() {
                   onChange={e => setName(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleStart()}
                   placeholder="Masukkan nama lengkap Anda..."
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-5 py-4 outline-none focus:border-zinc-600 focus:ring-2 focus:ring-zinc-700 transition-all text-center text-lg placeholder:text-zinc-600 text-white"
+                  className="w-full rounded-lg px-5 py-4 outline-none focus:ring-2 transition-all text-center text-lg theme-input" style={{ backgroundColor: 'var(--bg-input)', borderColor: 'var(--border-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-secondary)' }}
                 />
                 <button
                   onClick={handleStart}
                   disabled={!name.trim()}
-                  className="w-full flex items-center justify-center gap-2 bg-white hover:bg-zinc-200 text-black font-bold py-4 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-2 font-bold py-4 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed theme-btn-primary"
                 >
                   Mulai Asesmen <ChevronRight className="w-5 h-5" />
                 </button>

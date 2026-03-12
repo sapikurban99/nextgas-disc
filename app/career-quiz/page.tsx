@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Loader2 } from "lucide-react";
+import { ThemeToggle } from '../components/ThemeToggle';
 
 const ATTR_LINKEDIN = "https://www.linkedin.com/in/muhammad-alhadiansyah-santoso/";
 const ATTR_PIJAR = "https://pijarteknologi.id/";
@@ -73,8 +74,8 @@ function usePersistedState<T>(key: string, initial: T): [T, React.Dispatch<React
 
 function ProgressBar({ value }: { value: number }) {
     return (
-        <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
-            <div className="h-full bg-white rounded-full transition-all ease-out duration-300" style={{ width: `${Math.max(0, Math.min(100, value))}%` }} />
+        <div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--border-secondary)' }}>
+            <div className="h-full rounded-full transition-all ease-out duration-300" style={{ width: `${Math.max(0, Math.min(100, value))}%`, backgroundColor: 'var(--bg-accent)' }} />
         </div>
     );
 }
@@ -152,41 +153,41 @@ function ResultView({ score, onRetake }: { score: Record<string, number>, onReta
 
     return (
         <div className="mx-auto max-w-2xl w-full">
-            <div className="bg-zinc-950 border border-zinc-800 rounded-lg p-8 text-center mb-8">
+            <div className="rounded-lg p-8 text-center mb-8 border" style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-primary)' }}>
                 <div className="text-5xl mb-6">{topMeta.emoji}</div>
-                <h2 className="text-3xl font-extrabold text-white mb-4">Kamu adalah: {topMeta.name}</h2>
-                <p className="text-zinc-400 text-lg mb-8">{topMeta.blurb}</p>
-                <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 text-left mb-8 space-y-4">
-                    <h3 className="font-bold text-zinc-300 border-b border-zinc-800 pb-3">Komposisi Kepribadianmu</h3>
+                <h2 className="text-3xl font-extrabold mb-4" style={{ color: 'var(--text-primary)' }}>Kamu adalah: {topMeta.name}</h2>
+                <p className="text-lg mb-8" style={{ color: 'var(--text-muted)' }}>{topMeta.blurb}</p>
+                <div className="rounded-lg p-6 text-left mb-8 space-y-4 border" style={{ backgroundColor: 'var(--bg-input)', borderColor: 'var(--border-secondary)' }}>
+                    <h3 className="font-bold border-b pb-3" style={{ color: 'var(--text-secondary)', borderColor: 'var(--border-secondary)' }}>Komposisi Kepribadianmu</h3>
                     {TYPES.sort((a, b) => pct[b.id] - pct[a.id]).map((t) => (
                         <div key={t.id} className="relative">
                             <div className="flex justify-between text-sm font-semibold mb-1">
-                                <span className="text-zinc-300">{t.emoji} {t.name}</span>
-                                <span className={t.id === topMeta.id ? 'text-white' : 'text-zinc-500'}>{pct[t.id]}%</span>
+                                <span style={{ color: 'var(--text-secondary)' }}>{t.emoji} {t.name}</span>
+                                <span style={{ color: t.id === topMeta.id ? 'var(--text-primary)' : 'var(--text-muted)' }}>{pct[t.id]}%</span>
                             </div>
-                            <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
-                                <div className={`h-full ${t.id === topMeta.id ? 'bg-white' : 'bg-zinc-600'}`} style={{ width: `${pct[t.id]}%` }} />
+                            <div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--border-secondary)' }}>
+                                <div className={`h-full`} style={{ width: `${pct[t.id]}%`, backgroundColor: t.id === topMeta.id ? 'var(--bg-accent)' : 'var(--text-muted)' }} />
                             </div>
                         </div>
                     ))}
                 </div>
-                <button onClick={onRetake} className="w-full py-3.5 bg-zinc-900 text-zinc-300 font-bold rounded hover:bg-zinc-800 border border-zinc-800 transition-colors">Ulangi Kuis</button>
+                <button onClick={onRetake} className="w-full py-3.5 font-bold rounded border transition-colors theme-btn-secondary">Ulangi Kuis</button>
             </div>
 
-            <div className="bg-white text-black rounded-lg p-8">
+            <div className="rounded-lg p-8" style={{ backgroundColor: 'var(--cta-section-bg)', color: 'var(--cta-section-text)' }}>
                 <h3 className="text-xl font-bold mb-3">Dapatkan Kartu Hasil (PNG) 📸</h3>
-                <p className="text-zinc-600 text-sm mb-6">Masukkan email untuk mengunduh gambar hasil kuis personalmu.</p>
+                <p className="text-sm mb-6" style={{ color: 'var(--cta-section-muted)' }}>Masukkan email untuk mengunduh gambar hasil kuis personalmu.</p>
                 <div className="flex flex-col sm:flex-row gap-3">
-                    <input type="email" placeholder="nama@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className="flex-1 bg-zinc-100 border border-zinc-200 text-black rounded px-5 py-3 outline-none focus:ring-2 focus:ring-zinc-400" />
-                    <button onClick={submitEmailThenGenerate} disabled={isPosting} className="px-6 py-3 rounded bg-black text-white font-bold hover:bg-zinc-800 flex items-center justify-center">
+                    <input type="email" placeholder="nama@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className="flex-1 rounded px-5 py-3 outline-none focus:ring-2" style={{ backgroundColor: 'var(--bg-input)', borderColor: 'var(--border-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-secondary)' }} />
+                    <button onClick={submitEmailThenGenerate} disabled={isPosting} className="px-6 py-3 rounded font-bold flex items-center justify-center theme-btn-primary" style={{ backgroundColor: 'var(--cta-section-btn-bg)', color: 'var(--cta-section-btn-text)' }}>
                         {isPosting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Buat Kartu"}
                     </button>
                 </div>
                 {postErr && <p className="text-rose-500 text-sm mt-3">{postErr}</p>}
                 {imgURL && (
                     <div className="mt-8">
-                        <img src={imgURL} alt="Result" className="w-full rounded-lg border border-zinc-200" />
-                        <a href={imgURL} download={`quiz-${topMeta.id}.png`} className="block text-center mt-4 py-4 bg-black hover:bg-zinc-800 text-white font-bold rounded">⬇️ Download Gambar Sekarang</a>
+                        <img src={imgURL} alt="Result" className="w-full rounded-lg border" style={{ borderColor: 'var(--border-primary)' }} />
+                        <a href={imgURL} download={`quiz-${topMeta.id}.png`} className="block text-center mt-4 py-4 font-bold rounded theme-btn-primary">⬇️ Download Gambar Sekarang</a>
                     </div>
                 )}
             </div>
@@ -204,12 +205,12 @@ function QuizView({ answers, setAnswers, onFinish }: { answers: Record<string, n
     return (
         <div className="mx-auto max-w-2xl w-full">
             <ProgressBar value={(Object.keys(answers).length / QUESTIONS.length) * 100} />
-            <p className="text-sm text-zinc-500 mt-3 mb-8">Pertanyaan {idx + 1} / {QUESTIONS.length}</p>
-            <div className="bg-zinc-950 border border-zinc-800 rounded-lg p-8">
-                <h2 className="text-2xl font-bold text-white mb-10 min-h-[80px]">"{QUESTIONS[idx].text}"</h2>
+            <p className="text-sm mt-3 mb-8" style={{ color: 'var(--text-muted)' }}>Pertanyaan {idx + 1} / {QUESTIONS.length}</p>
+            <div className="rounded-lg p-8 border" style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-primary)' }}>
+                <h2 className="text-2xl font-bold mb-10 min-h-[80px]" style={{ color: 'var(--text-primary)' }}>"{QUESTIONS[idx].text}"</h2>
                 <div className="grid gap-3">
                     {LIKERT.map((opt) => (
-                        <button key={opt.value} onClick={() => setAnswer(opt.value)} className={`p-4 rounded-lg font-bold text-left border transition-colors ${answers[QUESTIONS[idx].id] === opt.value ? "bg-white text-black border-white" : "border-zinc-800 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"}`}>
+                        <button key={opt.value} onClick={() => setAnswer(opt.value)} className={`p-4 rounded-lg font-bold text-left border transition-colors`} style={answers[QUESTIONS[idx].id] === opt.value ? { backgroundColor: 'var(--bg-accent)', color: 'var(--text-inverse)', borderColor: 'var(--bg-accent)' } : { borderColor: 'var(--border-secondary)', color: 'var(--text-muted)' }}>
                             {opt.label}
                         </button>
                     ))}
@@ -229,14 +230,17 @@ export default function CareerQuizPage() {
     const [showResult, setShowResult] = useState(false);
     useEffect(() => setIsClient(true), []);
 
-    if (!isClient) return <div className="min-h-screen flex items-center justify-center bg-black"><Loader2 className="w-8 h-8 animate-spin text-zinc-600" /></div>;
+    if (!isClient) return <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--bg-page)' }}><Loader2 className="w-8 h-8 animate-spin" style={{ color: 'var(--text-muted)' }} /></div>;
 
     return (
-        <div className="min-h-screen flex flex-col bg-black text-zinc-300 font-sans pb-20">
+        <div className="min-h-screen flex flex-col font-sans pb-20" style={{ backgroundColor: 'var(--bg-page)', color: 'var(--text-secondary)' }}>
             <header className="max-w-4xl mx-auto px-6 pt-10 pb-6 w-full">
-                <Link href="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white font-semibold text-sm mb-8 transition-colors"><ArrowLeft className="w-4 h-4" /> Batal & Kembali</Link>
-                <h1 className="text-4xl font-extrabold tracking-tight text-white mb-4">Career Match Quiz <span className="text-zinc-500">AI</span></h1>
-                <p className="text-zinc-500 text-lg">Ungkap peran idealmu di industri teknologi & startup.</p>
+                <div className="flex justify-between items-center mb-8">
+                    <Link href="/" className="inline-flex items-center gap-2 font-semibold text-sm transition-opacity hover:opacity-70" style={{ color: 'var(--text-muted)' }}><ArrowLeft className="w-4 h-4" /> Batal & Kembali</Link>
+                    <ThemeToggle />
+                </div>
+                <h1 className="text-4xl font-extrabold tracking-tight mb-4" style={{ color: 'var(--text-primary)' }}>Career Match Quiz <span style={{ color: 'var(--text-muted)' }}>AI</span></h1>
+                <p className="text-lg" style={{ color: 'var(--text-muted)' }}>Ungkap peran idealmu di industri teknologi & startup.</p>
             </header>
             <main className="w-full max-w-4xl mx-auto px-6">
                 {showResult ? <ResultView score={computeScores(answers)} onRetake={() => { setAnswers({}); setShowResult(false); }} /> : <QuizView answers={answers} setAnswers={setAnswers} onFinish={() => setShowResult(true)} />}

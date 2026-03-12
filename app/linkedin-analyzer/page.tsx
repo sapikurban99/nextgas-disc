@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Loader2, Sparkles, User, BarChart3, Download, FileText, ArrowLeft } from "lucide-react"
 import Link from "next/link"
+import { ThemeToggle } from '../components/ThemeToggle'
 
 export default function LinkedInAnalyzer() {
     const [url, setUrl] = useState("")
@@ -310,37 +311,38 @@ export default function LinkedInAnalyzer() {
     }
 
     return (
-        <div className="min-h-screen bg-black text-zinc-300 font-sans">
+        <div className="min-h-screen font-sans" style={{ backgroundColor: 'var(--bg-page)', color: 'var(--text-secondary)' }}>
             <div className="container mx-auto p-4 md:p-8 max-w-4xl">
-                {/* Back */}
-                <div className="mb-8">
-                    <Link href="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors font-medium">
+                {/* Back + Theme Toggle */}
+                <div className="mb-8 flex justify-between items-center">
+                    <Link href="/" className="inline-flex items-center gap-2 hover:opacity-70 transition-opacity font-medium" style={{ color: 'var(--text-muted)' }}>
                         <ArrowLeft className="w-5 h-5" /> Kembali ke Beranda
                     </Link>
+                    <ThemeToggle />
                 </div>
 
                 {/* Header */}
                 <div className="text-center mb-12">
                     <div className="flex justify-center mb-6">
-                        <div className="w-16 h-16 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center">
-                            <BarChart3 className="w-8 h-8 text-white" />
+                        <div className="w-16 h-16 rounded-lg flex items-center justify-center border" style={{ backgroundColor: 'var(--bg-input)', borderColor: 'var(--border-secondary)' }}>
+                            <BarChart3 className="w-8 h-8" style={{ color: 'var(--text-primary)' }} />
                         </div>
                     </div>
-                    <h1 className="text-4xl font-extrabold text-white mb-4 tracking-tight">LinkedIn Profile Analyzer</h1>
-                    <p className="text-lg text-zinc-500 max-w-2xl mx-auto leading-relaxed">
+                    <h1 className="text-4xl font-extrabold mb-4 tracking-tight" style={{ color: 'var(--text-primary)' }}>LinkedIn Profile Analyzer</h1>
+                    <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                         Cek kekuatan profil LinkedIn profesionalmu dengan bantuan AI. Tempel URL profil di bawah dan dapatkan skor serta saran perbaikan seketika.
                     </p>
                 </div>
 
                 {/* Input Card */}
-                <div className="bg-zinc-950 rounded-lg p-8 border border-zinc-900 mb-12">
+                <div className="rounded-lg p-8 border mb-12" style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-primary)' }}>
                     <div className="flex items-center gap-3 mb-6">
-                        <div className="p-2 bg-zinc-900 border border-zinc-800 rounded-lg">
-                            <User className="h-6 w-6 text-white" />
+                        <div className="p-2 rounded-lg border" style={{ backgroundColor: 'var(--bg-input)', borderColor: 'var(--border-secondary)' }}>
+                            <User className="h-6 w-6" style={{ color: 'var(--text-primary)' }} />
                         </div>
                         <div>
-                            <h2 className="text-xl font-bold text-white">Analisis Sekarang</h2>
-                            <p className="text-sm text-zinc-500">Profil LinkedIn tujuan harus berstatus publik agar AI dapat membaca datanya.</p>
+                            <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Analisis Sekarang</h2>
+                            <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Profil LinkedIn tujuan harus berstatus publik agar AI dapat membaca datanya.</p>
                         </div>
                     </div>
 
@@ -350,12 +352,12 @@ export default function LinkedInAnalyzer() {
                             placeholder="https://www.linkedin.com/in/nama-anda/"
                             value={url}
                             onChange={(e) => setUrl(e.target.value)}
-                            className="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-5 py-4 outline-none focus:border-zinc-600 focus:ring-2 focus:ring-zinc-700 transition-all font-medium text-white placeholder:text-zinc-600"
+                            className="flex-1 rounded-lg px-5 py-4 outline-none focus:ring-2 transition-all font-medium theme-input" style={{ backgroundColor: 'var(--bg-input)', borderColor: 'var(--border-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-secondary)' }}
                         />
                         <button
                             onClick={handleAnalyze}
                             disabled={isAnalyzing || !url}
-                            className="bg-white hover:bg-zinc-200 disabled:bg-zinc-800 disabled:text-zinc-600 disabled:cursor-not-allowed text-black font-bold px-8 py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shrink-0"
+                            className="font-bold px-8 py-4 rounded-lg flex items-center justify-center gap-2 transition-colors shrink-0 disabled:opacity-50 disabled:cursor-not-allowed theme-btn-primary"
                         >
                             {isAnalyzing ? (
                                 <><Loader2 className="h-5 w-5 animate-spin" /> Menghubungkan...</>

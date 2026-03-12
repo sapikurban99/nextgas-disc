@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useRef } from "react"
 import { Upload, FileText, Download, Loader2, AlertCircle, Star, Wrench, Lightbulb, Bot, ArrowLeft, Tag, RefreshCw } from "lucide-react"
 import Link from "next/link"
+import { ThemeToggle } from '../components/ThemeToggle'
 
 // ── Types matching n8n output ──────────────────────────────────────────────
 interface ScoreBreakdownItem {
@@ -266,22 +267,23 @@ export default function CVAnalyzer() {
     }
 
     return (
-        <div className="min-h-screen bg-black text-zinc-300 font-sans">
+        <div className="min-h-screen font-sans" style={{ backgroundColor: 'var(--bg-page)', color: 'var(--text-secondary)' }}>
             <div className="container mx-auto p-4 md:p-8 max-w-6xl">
 
-                {/* Back */}
-                <div className="mb-10">
-                    <Link href="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors font-medium">
+                {/* Back + Theme Toggle */}
+                <div className="mb-10 flex justify-between items-center">
+                    <Link href="/" className="inline-flex items-center gap-2 hover:opacity-70 transition-opacity font-medium" style={{ color: 'var(--text-muted)' }}>
                         <ArrowLeft className="w-5 h-5" /> Kembali ke Beranda
                     </Link>
+                    <ThemeToggle />
                 </div>
 
                 {/* Header */}
                 <header className="text-center mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white tracking-tight">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight" style={{ color: 'var(--text-primary)' }}>
                         CV & Resume Analyzer
                     </h1>
-                    <p className="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                         Unggah CV Anda (.pdf, .doc, .docx) dan biarkan AI kami menganalisisnya. Dapatkan skor ATS, temukan celah, dan tingkatkan peluang dipanggil interview.
                     </p>
                 </header>
@@ -289,19 +291,19 @@ export default function CVAnalyzer() {
                 <main className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
 
                     {/* ── Upload Panel ─────────────────────────────────── */}
-                    <div className="bg-zinc-950 rounded-lg border border-zinc-900 p-8 flex flex-col h-fit">
-                        <h2 className="text-2xl font-bold text-white mb-6">1. Unggah Berkas</h2>
+                    <div className="rounded-lg border p-8 flex flex-col h-fit" style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-primary)' }}>
+                        <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>1. Unggah Berkas</h2>
                         <div className="space-y-6 flex-grow">
                             <div
-                                className="border-2 border-dashed border-zinc-700 rounded-lg p-12 text-center hover:border-zinc-500 transition-all duration-300 cursor-pointer group bg-zinc-900/50"
+                                className="border-2 border-dashed rounded-lg p-12 text-center transition-all duration-300 cursor-pointer group" style={{ borderColor: 'var(--border-secondary)', backgroundColor: 'var(--bg-input)' }}
                                 onDragOver={handleDragOver}
                                 onDrop={handleDrop}
                                 onClick={() => fileInputRef.current?.click()}
                             >
-                                <Upload className="h-14 w-14 text-zinc-600 mx-auto mb-4 group-hover:text-white transition-colors group-hover:scale-110 transform duration-300" />
-                                <p className="font-semibold text-zinc-300 text-lg">Pilih file dari komputermu</p>
-                                <p className="text-zinc-500 mt-2">atau seret dan lepas ke area ini</p>
-                                <p className="text-sm text-zinc-600 mt-4 font-medium px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full inline-block">Mendukung PDF, DOC, DOCX</p>
+                                <Upload className="h-14 w-14 mx-auto mb-4 group-hover:scale-110 transform duration-300" style={{ color: 'var(--text-muted)' }} />
+                                <p className="font-semibold text-lg" style={{ color: 'var(--text-secondary)' }}>Pilih file dari komputermu</p>
+                                <p className="mt-2" style={{ color: 'var(--text-muted)' }}>atau seret dan lepas ke area ini</p>
+                                <p className="text-sm mt-4 font-medium px-3 py-1 border rounded-full inline-block" style={{ color: 'var(--text-muted)', backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-secondary)' }}>Mendukung PDF, DOC, DOCX</p>
                                 <input
                                     ref={fileInputRef}
                                     type="file"
@@ -312,11 +314,11 @@ export default function CVAnalyzer() {
                             </div>
 
                             {selectedFile && (
-                                <div className="flex items-center p-4 bg-zinc-900 rounded-lg border border-zinc-800">
-                                    <FileText className="h-10 w-10 text-white mr-4 shrink-0" />
+                                <div className="flex items-center p-4 rounded-lg border" style={{ backgroundColor: 'var(--bg-input)', borderColor: 'var(--border-secondary)' }}>
+                                    <FileText className="h-10 w-10 mr-4 shrink-0" style={{ color: 'var(--text-primary)' }} />
                                     <div className="overflow-hidden">
-                                        <p className="font-semibold text-white truncate">{selectedFile.name}</p>
-                                        <p className="text-sm text-zinc-500 mt-0.5">{formatFileSize(selectedFile.size)}</p>
+                                        <p className="font-semibold truncate" style={{ color: 'var(--text-primary)' }}>{selectedFile.name}</p>
+                                        <p className="text-sm mt-0.5" style={{ color: 'var(--text-muted)' }}>{formatFileSize(selectedFile.size)}</p>
                                     </div>
                                     <button
                                         onClick={(e) => { e.stopPropagation(); setSelectedFile(null); setAnalysisResult(null) }}
@@ -337,7 +339,7 @@ export default function CVAnalyzer() {
                             <button
                                 onClick={analyzeCV}
                                 disabled={!selectedFile || isAnalyzing}
-                                className="w-full h-14 flex items-center justify-center gap-3 text-lg font-bold text-black bg-white rounded hover:bg-zinc-200 disabled:bg-zinc-800 disabled:text-zinc-600 disabled:cursor-not-allowed transition-all"
+                                className="w-full h-14 flex items-center justify-center gap-3 text-lg font-bold rounded disabled:opacity-50 disabled:cursor-not-allowed transition-all theme-btn-primary"
                             >
                                 {isAnalyzing ? (
                                     <><Loader2 className="h-6 w-6 animate-spin" /> Menganalisis...</>
@@ -349,8 +351,8 @@ export default function CVAnalyzer() {
                     </div>
 
                     {/* ── Results Panel ─────────────────────────────────── */}
-                    <div className="bg-zinc-950 rounded-lg border border-zinc-900 p-8 min-h-[500px] flex flex-col">
-                        <h2 className="text-2xl font-bold text-white mb-6">2. Laporan Hasil Analisis</h2>
+                    <div className="rounded-lg border p-8 min-h-[500px] flex flex-col" style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-primary)' }}>
+                        <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>2. Laporan Hasil Analisis</h2>
 
                         <div className="flex-grow">
                             {/* Loading */}
@@ -604,7 +606,7 @@ export default function CVAnalyzer() {
                                     <div className="pt-6 border-t border-zinc-800">
                                         <button
                                             onClick={() => setShowEmailModal(true)}
-                                            className="w-full h-14 flex items-center justify-center gap-3 text-lg font-bold text-black bg-white hover:bg-zinc-200 rounded transition-all"
+                                            className="w-full h-14 flex items-center justify-center gap-3 text-lg font-bold rounded transition-all theme-btn-primary"
                                         >
                                             <Download className="h-5 w-5" />
                                             Simpan Laporan Lengkap (PDF)
@@ -619,10 +621,10 @@ export default function CVAnalyzer() {
 
             {/* ── Email Modal ── */}
             {showEmailModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-                    <div className="bg-zinc-950 border border-zinc-800 rounded-lg w-full max-w-md p-8 shadow-2xl relative">
-                        <h2 className="text-2xl font-bold text-white mb-2">Simpan Hasil Menarik Ini?</h2>
-                        <p className="text-zinc-500 text-sm mb-6 leading-relaxed">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm" style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}>
+                    <div className="border rounded-lg w-full max-w-md p-8 shadow-2xl relative" style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-secondary)' }}>
+                        <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>Simpan Hasil Menarik Ini?</h2>
+                        <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                             Bantu kami berkembang! Masukkan email Anda untuk mengunduh laporan PDF ini.
                         </p>
                         <div className="space-y-4">
@@ -632,7 +634,7 @@ export default function CVAnalyzer() {
                                     placeholder="alamat.email@contoh.com"
                                     value={userEmail}
                                     onChange={(e) => setUserEmail(e.target.value)}
-                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3.5 outline-none focus:border-zinc-600 focus:ring-2 focus:ring-zinc-700 transition-all font-medium text-white placeholder:text-zinc-600"
+                                    className="w-full border rounded-lg px-4 py-3.5 outline-none focus:ring-2 transition-all font-medium theme-input" style={{ backgroundColor: 'var(--bg-input)', borderColor: 'var(--border-secondary)', color: 'var(--text-primary)' }}
                                 />
                                 {userEmail && !validateEmail(userEmail) && (
                                     <p className="text-rose-400 text-xs mt-2 font-medium ml-1">Format email belum benar.</p>
@@ -642,7 +644,7 @@ export default function CVAnalyzer() {
                                 <button
                                     onClick={generatePDF}
                                     disabled={!validateEmail(userEmail) || isGeneratingPDF}
-                                    className="flex-1 flex justify-center items-center py-3.5 bg-white text-black font-bold rounded hover:bg-zinc-200 disabled:opacity-50 transition-all"
+                                    className="flex-1 flex justify-center items-center py-3.5 font-bold rounded disabled:opacity-50 transition-all theme-btn-primary"
                                 >
                                     {isGeneratingPDF ? <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> Memproses...</> : "Kirim & Unduh PDF"}
                                 </button>
